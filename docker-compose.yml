@@ -1,0 +1,23 @@
+version: '3'
+services:
+  myspringapp:
+    image: test
+    build: .
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - myh2
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=password
+  myh2:
+    image: oscarfonts/h2
+    restart: always
+    ports:
+      - "1521:1521"
+    environment:
+      - H2_PASSWORD=password
+      - H2_USER=sa
+      - H2_DB=testdb
